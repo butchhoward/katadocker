@@ -16,30 +16,8 @@ function usage
     exit 1
 }
 
-[ -z "${LOCAL_PWD}" ] && usage
-[ -z "${SSH_AUTH_SOCK}" ] && usage
-[ -z "${LOCAL_USER_NAME}" ] && usage
-[ -z "${LOCAL_USER_ID}" ] && usage
-[ -z "${LOCAL_GROUP_ID}" ] && usage
-
 [ -n "${LOCAL_HTTPS_PROXY}" ] && export https_proxy="${LOCAL_HTTPS_PROXY}"
 [ -n "${LOCAL_HTTP_PROXY}" ] && export http_proxy="${LOCAL_HTTP_PROXY}"
 
-PREVIOUS_USER_NAME="$(getent passwd ${LOCAL_USER_ID} | cut -d: -f1)"
-if [ -n "${PREVIOUS_USER_NAME}" ]
-then
-    deluser ${PREVIOUS_USER_NAME} >/dev/null 2>&1
-    delgroup ${PREVIOUS_USER_NAME} >/dev/null 2>&1
-fi
-
-addgroup --gid ${LOCAL_GROUP_ID} ${LOCAL_USER_NAME} >/dev/null 2>&1
-adduser --no-create-home \
-    --disabled-password \
-    --gecos '' \
-    --uid ${LOCAL_USER_ID} \
-    --ingroup ${LOCAL_USER_NAME} \
-    ${LOCAL_USER_NAME} >/dev/null 2>&1
-adduser ${LOCAL_USER_NAME} sudo >/dev/null 2>&1
-
-cd "${LOCAL_PWD}" || cd "/home/${LOCAL_USER_NAME}"
-su ${LOCAL_USER_NAME}
+echo "I'm in the kata-docker entrypoint"
+sudo -i

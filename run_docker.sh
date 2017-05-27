@@ -1,6 +1,9 @@
 #!/bin/bash
 
-docker run -it -v ${HOME}:${HOME} \
+DOCKER_IMAGE=${1:-"kata-docker:16.04"}
+shift
+
+docker run -it -v ${HOME}:/opt/host_home \
     -e LOCAL_PWD=$(pwd) \
     -v $(dirname ${SSH_AUTH_SOCK}):$(dirname $SSH_AUTH_SOCK}) \
     -e SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
@@ -10,4 +13,4 @@ docker run -it -v ${HOME}:${HOME} \
     -e LOCAL_HTTPS_PROXY=${https_proxy} \
     -e LOCAL_HTTP_PROXY=${http_proxy} \
     $@ \
-    kata-docker:14.04
+    ${DOCKER_IMAGE}
