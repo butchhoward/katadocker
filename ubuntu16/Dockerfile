@@ -18,6 +18,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
         vim \
         wget \
         curl \
+        build-essential \
+        cmake \
         python \
         openjdk-7-jdk \
         && \
