@@ -17,11 +17,12 @@ RUN DEBIAN_FRONTEND=noninteractive \
         sysstat \
         vim \
         wget \
+        curl \
         python \
         openjdk-7-jdk \
-        npm \
-        nodejs \
         && \
+    curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+    apt-get install -y nodejs && \
     ldconfig && \
     chmod a+x /usr/local/bin/entrypoint.sh && \
     echo '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
