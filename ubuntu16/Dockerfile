@@ -22,6 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
         cmake \
         python \
         openjdk-7-jdk \
+	maven \
         && \
     curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get install -y nodejs && \
