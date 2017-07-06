@@ -23,11 +23,13 @@ function usage
 USER_NAME=${LOCAL_USER_NAME:user}
 USER_ID=${LOCAL_USER_ID:-9001}
 GROUP_ID=${LOCAL_GROUP_ID:-9001}
-EXISTING_USER=$(getent passwd ${USER_ID} | cut -d: -f1)
-echo "Existing user found: '${EXISTING_USER}'"
 
+#not using the groupid because that does not seem to work when hosting on OSX
 addgroup  ${USER_NAME}
+
+EXISTING_USER=$(getent passwd ${USER_ID} | cut -d: -f1)
 if [ -n "${EXISTING_USER}" ]; then
+    echo "Existing user found: '${EXISTING_USER}'"
     deluser ${EXISTING_USER} 
 fi
 adduser --no-create-home --disabled-password --gecos GECOS --uid $USER_ID --ingroup ${USER_NAME} ${USER_NAME}

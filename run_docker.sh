@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#specific to running on OSX:
-DOCKER_IMAGE=${1:-"kata-docker:16.04"}
+DOCKER_IMAGE=${1:?"Image 'name:tag' designation is required"}
 shift
 
 LOCAL_USER_NAME=$(id -un)
