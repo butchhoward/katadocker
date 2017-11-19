@@ -30,7 +30,6 @@ fi
 
 DOCKER_IMAGE=${1:?${USAGE}}
 shift
-echo "args: $@"
 
 LOCAL_USER_NAME=$(id -un)
 
@@ -45,3 +44,4 @@ docker run -it -v ${HOME}:/home/${LOCAL_USER_NAME} \
     -e LOCAL_HTTP_PROXY=${http_proxy} \
     $@ \
     ${DOCKER_IMAGE}
+    

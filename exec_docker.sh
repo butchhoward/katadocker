@@ -31,7 +31,6 @@ fi
 
 DOCKER_CONTAINER=${1:?${USAGE}}
 shift
-echo "args: $@"
 
 LOCAL_USER_NAME=$(id -un)
 
@@ -43,6 +42,8 @@ docker exec -it \
     -e LOCAL_GROUP_ID=$(id -g) \
     -e LOCAL_HTTPS_PROXY="${https_proxy}" \
     -e LOCAL_HTTP_PROXY="${http_proxy}" \
+    -e DOCKER_EXEC=1 \
     $@ \
     ${DOCKER_CONTAINER} \
     entrypoint.sh
+    

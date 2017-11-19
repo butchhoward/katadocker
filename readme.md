@@ -1,6 +1,15 @@
 # Docker file creators and runners
 
-The base directory is the context for all the docker files.
+The base directory has the utility scripts for building docker images and running containers. See the information 
+below for each of the scripts.
+
+## context directory
+
+The `context` directory has the files that will be used when building the images. The `entrypoint.sh` script 
+used in the `Dockerfile` for the `ENTRYPOINT` instruction is in the `context` directory. Directories under
+`context` hold the `Dockerfile`s for each of the images that can be build. For example, `./context/ubuntu16/Dockerfile` is used to create the `katadocker:ubuntu16` image.
+
+This structure is an attempt to keep the docker image context as small as possible while abiding by the rule that the `Dockerfile` must be in the context space used by `docker build`.
 
 ## build_docker.sh
 
@@ -8,9 +17,11 @@ The base directory is the context for all the docker files.
 
 Builds a docker image. While this can be used to build an image from any Dockerfile, the other scripts here assume the image used is being created with with this script and some assumptions in the Dockerfile that center on the behavior of the `entrypoint.sh`.
 
-* 'name:tag' is a single string giving a docker image name and tag in the usual docker format
+Run this script while in the context directory for whatever images your are creating. For the images based on the `./context/*` Dckerfiles, be sure you are running from the `./context` directory.
 
-* 'path-to-docker-file' is the path to the Dockerfile (typically one on the folders under the context folder)
+`name:tag` is a single string giving a docker image name and tag in the usual docker format
+
+`path-to-docker-file` is the path to the Dockerfile (typically one on the folders under the context folder)
 
 ```bash
 ./build_docker.sh katadocker:ubuntu16 ./ubuntu16/Dockerfile
@@ -29,9 +40,9 @@ The current home directory is mounted as a volume at `/home/<$USER>` in the cont
 Being able to access the home folder in the container is handy, but also be aware that things like `.profile` and `.bashrc` are now shared between the container and the host. If you have commands in those files that work in the host but not in the container (i.e. OSX specific things that do not play well in Ubuntu), you can protect them by checking for the existence of `/.dockerenv` which will only exist when you are in a container. (* Note * Word on the interwebs is that this will stop being correct at some point, but it still works today.)
 
 
-* 'name:tag' is a single string giving a docker image name and tag in the usual docker format
+`name:tag` is a single string giving a docker image name and tag in the usual docker format
 
-* '[...]' any parameters given after the image name:tag are passed to the `docker run` command immediately before the image name.
+`[...]` any parameters given after the image name:tag are passed to the `docker run` command immediately before the image name.
 
 ```bash
 ./run_docker katadocker:ubuntu16
@@ -49,9 +60,9 @@ The current home directory is mounted as a volume at `/home/<$USER>` in the cont
 
 Being able to access the home folder in the container is handy, but also be aware that things like `.profile` and `.bashrc` are now shared between the container and the host. If you have commands in those files that work in the host but not in the container (i.e. OSX specific things that do not play well in Ubuntu), you can protect them by checking for the existence of `/.dockerenv` which will only exist when you are in a container. (* Note * Word on the interwebs is that this will stop being correct at some point, but it still works today.)
 
-* `container_id` is the container id from `docker ps` for a container started using `run_docker.sh`
+`container_id` is the container id from `docker ps` for a container started using `run_docker.sh`
 
-* '[...]' any parameters given after the container id are passed to the `docker exec` command immediately before the image name.
+`[...]` any parameters given after the container id are passed to the `docker exec` command immediately before the image name.
 
 ```bash
 $ docker ps
