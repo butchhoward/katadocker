@@ -21,10 +21,13 @@ RUN DEBIAN_FRONTEND=noninteractive \
         build-essential \
         cmake \
         python \
-        openjdk-7-jdk \
-	maven \
+        openjdk-8-* \
+	    maven \
+        check \
+        pkg-config \
+        gradle \
         && \
-    curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt-get install -y nodejs && \
     ldconfig && \
     chmod a+x /usr/local/bin/entrypoint.sh && \
