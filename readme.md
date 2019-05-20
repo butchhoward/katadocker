@@ -24,7 +24,9 @@ Run this script while in the context directory for whatever images your are crea
 `path-to-docker-file` is the path to the Dockerfile (typically one on the folders under the context folder)
 
 ```bash
-./build_docker.sh katadocker:ubuntu16 ./ubuntu16/Dockerfile
+cd context
+../build_docker.sh katadocker:ubuntu16 ./ubuntu16/Dockerfile
+cd ..
 ```
 
 ## run_docker.sh
