@@ -9,7 +9,7 @@ The `context` directory has the files that will be used when building the images
 used in the `Dockerfile` for the `ENTRYPOINT` instruction is in the `context` directory. Directories under
 `context` hold the `Dockerfile`s for each of the images that can be build. For example, `./context/ubuntu16/Dockerfile` is used to create the `katadocker:ubuntu16` image.
 
-This structure is an attempt to keep the docker image context as small as possible while abiding by the rule that the `Dockerfile` must be in the context space used by `docker build`.
+This structure is an attempt to keep the docker image context as small as possible while abiding by the rule that the `Dockerfile` must be in the context space used by `docker build`. Note that the `.dockerignore` file instructs Docker to ignore everything except the `entrypoint.sh` script.
 
 ## build_docker.sh
 
